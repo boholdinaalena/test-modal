@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap')
+
+$base-color: #BACBCE
+$second-color: #E8EEEF
+$radius: 4px
+$accent-color: #17505B
+$border-color: #DCDFE6
+
+body    
+    height: 100vh
+    display: flex
+    justify-content: center
+    align-items: center
+    font-family: "Roboto", sans-serif
+    font-size: 14px
+    color: #303133
+
+
+button
+    outline: none
+    border: none
+
+input
+    outline: none
+    border: none
+
+.input-form, .select-form, .button-form
+  display: flex
+  align-items: center
+  height: 40px
+  border: 1px solid $border-color
+  box-sizing: border-box
+  border-radius: 4px
+
+.button-form
+    background: $accent-color
+    justify-content: center
+    width: 100%
+    font-weight: 500
+    font-size: 14px
+    color: white
+
+.input-form
+    width: 100%
+    padding: 0px 15px
+    color: #303133
+    font-size: 14px
+
+.input-form::placeholder
+    font-family: "Roboto", sans-serif
+    font-size: 14px
+    color: #A8ABB2
+
+.input-form:focus
+  border: 1px solid $accent-color
+
+.input-form:focus
+  border: 1px solid $accent-color
+
+.check
+    display: flex
+    align-items: center
+    font-weight: 500
+    color: $accent-color
+    line-height: 40px
+
+    &__body 
+        width: 100%
+        display: flex
+        align-items: center
+
+
+    input[type="checkbox"]
+        appearance: none
+        width: 15px
+        height: 15px
+        border: 1px solid $border-color
+        margin-right: 10px
+        border-radius: 3px
+
+    input[type="checkbox"]:checked
+        background: url('../img/Vector.svg')
+        background-size: cover
+        background-position-x: center
+        border: 1px solid $accent-color
