@@ -13,47 +13,58 @@
       <div class="modal__form">
         <div class="modal__phone">
           <SelectForm
+            :style="{ border: errorPhone }"
             class="modal__phone-select"
             :title="'Страна'"
             :options="countryNumbers"
+            ref="number"
           />
           <input
             class="modal__phone-input input-form"
             type="text"
             placeholder="Введите номер телефона*"
             v-model="phone"
+            ref="number"
           />
         </div>
         <input
           class="modal__name input-form"
           placeholder="Как к вам обращаться?*"
-        >
-        <SelectForm 
-          :options="roles" 
-          :placeholder="'Ваша роль в компании?*'" />
+          ref="name"
+        />
+        <SelectForm
+          :style="{ border: errorRole }"
+          :options="roles"
+          :placeholder="'Ваша роль в компании?*'"
+          @selectOptions="selectOptions"
+        />
       </div>
       <div class="modal__check check">
         <input type="checkbox" checked="true" value="true" name="'KEdmke'" />
         <label>Хочу получить бесплатную помощь в настройке</label>
       </div>
-
       <div class="modal__check check">
         <div class="check__body">
-        <input 
-          type="checkbox" 
-          :checked="havePromocode"
-          @click="togglePromocode()"/>
-        <span>У меня есть промокод</span>          
+          <input
+            type="checkbox"
+            v-model="name"
+            :checked="havePromocode"
+            @click="togglePromocode()"
+          />
+          <span>У меня есть промокод</span>
         </div>
-        <input 
-          class="modal__check-promocode input-form" 
+        <input
+          class="modal__check-promocode input-form"
           type="text"
           v-show="havePromocode"
           ref="test"
           autofocus
-          placeholder="Введите промокод"/>
+          placeholder="Введите промокод"
+        />
       </div>
-      <button class="modal__btn button-form">Активировать доступ</button>
+      <button class="modal__btn button-form" @click="checkInputs()">
+        Активировать доступ
+      </button>
       <div class="modal__link">
         Есть вопросы? <span class="important">Напишите нам!</span>
       </div>
@@ -75,8 +86,12 @@ export default {
       ],
       countryNumbers: ["+7", "+68", "+1"],
       phone: "",
-      promocode: '',
+      name: "",
+      role: "",
+      promocode: "",
       havePromocode: false,
+      errorPhone: "",
+      errorRole: "",
     };
   },
   components: {
@@ -84,10 +99,23 @@ export default {
   },
   methods: {
     togglePromocode() {
-      this.havePromocode = !this.havePromocode
-      this.$nextTick(() => this.$refs.test.focus())
-    }
-  }
+      this.havePromocode = !this.havePromocode;
+      this.$nextTick(() => this.$refs.test.focus());
+    },
+
+    selectOptions(v) {
+      this.role = v;
+    },
+
+    checkInputs() {
+      if (!this.phone) {
+        this.$refs.number.style.border = "1px solid red";
+        this.errorPhone = "1px solid red";
+      }
+      if (!this.name) this.$refs.name.style.border = "1px solid red";
+      if (!this.role) this.errorRole = "1px solid red";
+    },
+  },
 };
 </script>
 
@@ -96,7 +124,6 @@ $base-color: #BACBCE
 $second-color: #E8EEEF
 $radius: 4px
 $accent-color: #17505B
-$border-color: #DCDFE6
 
 input:active
   border: 1px solid $accent-color
@@ -156,7 +183,8 @@ input:active
           margin-left: -1px
           border-top-left-radius: 0
           border-bottom-left-radius: 0
-    
+        
+
     &__check-promocode
       height: 32px
 
@@ -167,5 +195,4 @@ input:active
     &__link
       display: flex
       justify-content: center
-    
 </style>

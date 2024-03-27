@@ -28,7 +28,7 @@
         class="options-form__option" 
         v-for="option in options" 
         :key="option"
-        @click="selected = option">
+        @click="selectOptions(option)">
         <span :class=" (option === selected) ? 'options-form__option__selected' : ''">
           {{ option }}
         </span>
@@ -58,6 +58,12 @@ export default {
         type: String
     }
   },
+  methods: {
+    selectOptions(v) {
+      this.selected = v
+      this.$emit('selectOptions', v)
+    }
+  }
 };
 </script>
 
